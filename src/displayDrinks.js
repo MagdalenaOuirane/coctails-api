@@ -1,45 +1,46 @@
-import getElement from './getElement.js';
+import getElement from "./getElement.js";
 
+import {hideLoading} from './toggleLoading.js'
 
 //drinks is an object with array inside with objects
 
-const displayDrinks =({drinks}) => {
-console.log("hello world");
-
-const section = getElement('.section-center');
-const title = getElement('.title');
+const displayDrinks = ({ drinks }) => {
 
 
+  const section = getElement(".section-center");
+  const title = getElement(".title");
 
-console.log('drinksObject:',drinks);
+  console.log("drinksObject:", drinks);
 
-if ( !drinks) {
-    title.textContent = 'Sorry, no drinks matched your search';
+  if (!drinks) {
+     hideLoading();
+
+    title.textContent = "Sorry, no drinks matched your search";
     section.innerHTML = null;
     return;
-}
-// if drinks object is succesful then :
-//we create new array and iterate through it to display it
-const newDrinks = drinks.map((drink) => {
-  console.log('Drink', drink)
+  }
+  // if drinks object is succesful then :
+  //we create new array and iterate through it to display it
+  const newDrinks = drinks
+    .map((drink) => {
+      console.log("Drink", drink);
 
-  // Descture from an object:
-  const {idDrink:id,strDrink:name,strDrinkThumb:image} = drink;
+      // Descture from an object:
+      const { idDrink: id, strDrink: name, strDrinkThumb: image } = drink;
 
-    return `<a href="drink.html">
+      return `<a href="drink.html">
     <article class="coctail" data-id="${id}">
       <img src="${image}" alt="coctail" />
       <h3>"${name}</h3>
     </article>
   </a>`;
-  
-})
-.join('')
-title.textContent= "";
-section.innerHTML = newDrinks;
-return section;
-   
-}
+    })
+    .join("");
 
+    hideLoading();
+  title.textContent = "";
+  section.innerHTML = newDrinks;
+  return section;
+};
 
 export default displayDrinks;
