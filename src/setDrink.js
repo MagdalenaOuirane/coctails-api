@@ -1,0 +1,10 @@
+const setDrink = (section) => {
+  section.addEventListener("click", function (e) {
+    const id = e.target.parentElement.dataset.id;
+    localStorage.setItem("drink", id);
+    console.log("id:", id);
+    console.log(e.target);
+  });
+};
+
+export default setDrink;
